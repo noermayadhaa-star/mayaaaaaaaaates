@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Simpan Pinjam Anggota - POKLAHSAR</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
+}
+body {
+    background: #f4f7fc;
+    display: flex;
+}
+/* ================= SIDEBAR ================= */
+.sidebar {
+    width: 280px;
+    height: 100vh;
+    background: #1e40af;
+    position: fixed;
+    overflow-y: auto;
+    color: white;
+}
+.logo {
+    padding: 25px;
+    text-align: center;
+    border-bottom: 1px solid rgba(255,255,255,.2);
+}
+.logo h2 { font-size: 24px; margin-bottom: 5px; }
+.logo p { font-size: 13px; opacity: .8; }
+.menu { padding: 15px; }
+.menu ul { list-style: none; }
+.menu ul li { margin-bottom: 8px; }
+.menu ul li a {
+    display: block;
+    padding: 12px 15px;
+    text-decoration: none;
+    color: white;
+    border-radius: 10px;
+    transition: .3s;
+}
+.menu ul li a:hover, .menu ul li a.active {
+    background: rgba(255,255,255,.2);
+}
+/* ================= MAIN ================= */
+.main {
+    margin-left: 280px;
+    width: calc(100% - 280px);
+}
+/* ================= TOPBAR ================= */
+.topbar {
+    background: white;
+    padding: 18px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 10px rgba(0,0,0,.08);
+}
+.topbar h2 { color: #1e40af; font-size: 20px; }
+/* ================= CONTENT ================= */
+.content { padding: 25px; }
+.section-title {
+    color: #1e40af;
+    margin-bottom: 20px;
+    font-size: 22px;
+    border-bottom: 2px solid #1e40af;
+    padding-bottom: 10px;
+    display: inline-block;
+}
+/* ================= CARDS ================= */
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+}
+.data-card {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,.05);
+    border-top: 4px solid #1e40af;
+}
+.data-card h3 {
+    margin-bottom: 15px;
+    color: #333;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.data-card h3 i {
+    color: #1e40af;
+    font-size: 24px;
+}
+.btn-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.btn {
+    display: inline-block;
+    padding: 10px 15px;
+    background: #f0f4ff;
+    color: #1e40af;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: 500;
+    transition: 0.3s;
+    border: 1px solid #d6e0ff;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.btn:hover {
+    background: #1e40af;
+    color: white;
+}
+.btn-excel { background: #e6f4ea; color: #137333; border-color: #ceead6; }
+.btn-excel:hover { background: #137333; color: white; }
+.btn-looker { background: #fef7e0; color: #b06000; border-color: #feefc3; }
+.btn-looker:hover { background: #b06000; color: white; }
+/* ================= DASHBOARD TABS ================= */
+.dashboard-container {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,.05);
+    margin-bottom: 30px;
+}
+.tab-menu {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 15px;
+}
+.tab-btn {
+    padding: 10px 20px;
+    border: none;
+    background: #f0f4ff;
+    color: #1e40af;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.tab-btn.active, .tab-btn:hover {
+    background: #1e40af;
+    color: white;
+}
+.iframe-wrapper {
+    position: relative;
+    width: 100%;
+    height: 600px;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    overflow: hidden;
+}
+.iframe-wrapper iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+/* ================= TABLE ================= */
+.table-container {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,.05);
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+table th, table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+}
+table th {
+    background: #f8f9fa;
+    color: #1e40af;
+    font-weight: 600;
+}
+table tbody tr:hover {
+    background: #f4f7fc;
+}
+.badge {
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+}
+@media(max-width: 768px) {
+    .sidebar { width: 100%; height: auto; position: relative; }
+    .main { margin-left: 0; width: 100%; }
+    body { flex-direction: column; }
+    .iframe-wrapper { height: 450px; }
+}
+</style>
+</head>
+<body>
+<!-- SIDEBAR -->
+<div class="sidebar">
+    <div class="logo">
+        <h2>POKLAHSAR</h2>
+        <p>Sistem Informasi Kelompok Pengolah dan Pemasar Hasil Perikanan</p>
+    </div>
+    <div class="menu">
+        <ul>
+            <li><a href="#"><i class="fas fa-home"></i> Kembali ke Dashboard</a></li>
+            <li><a href="#" class="active"><i class="fas fa-wallet"></i> Simpan Pinjam Anggota</a></li>
+        </ul>
+    </div>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+    <div class="topbar">
+        <h2>Simpan Pinjam Anggota - POKLAHSAR</h2>
+        <div>
+            <i class="fas fa-user-circle"></i> Administrator
+        </div>
+    </div>
+   
+    <div class="content">
+      
+        <h2 class="section-title"><i class="fas fa-link"></i> Integrasi Data Simpan Pinjam</h2>
+      
+        <!-- KUMPULAN CARD -->
+        <div class="grid-container">
+            <div class="data-card">
+                <h3><i class="fas fa-user-plus"></i> Form Pendaftaran</h3>
+                <p style="margin-bottom: 15px; font-size: 14px; color: #666;">Pendaftaran simpan pinjam anggota baru.</p>
+                <div class="btn-group">
+                    <a href="https://forms.gle/imo1GiGigmeRYMRx7" target="_blank" class="btn"><i class="fab fa-google"></i> Buka Google Form</a>
+                </div>
+            </div>
+            <div class="data-card">
+                <h3><i class="fas fa-file-excel"></i> Data Pendaftaran</h3>
+                <p style="margin-bottom: 15px; font-size: 14px; color: #666;">Rekapitulasi data pendaftaran anggota.</p>
+                <div class="btn-group">
+                    <a href="https://docs.google.com/spreadsheets/d/1FMH7tZtv_UDW9A8NihRsRoIG6l2RB_gsxK6vAYTnuyA/edit?usp=sharing" target="_blank" class="btn btn-excel"><i class="fas fa-table"></i> Lihat Spreadsheet</a>
+                </div>
+            </div>
+            <div class="data-card">
+                <h3><i class="fas fa-chart-bar"></i> Dashboard Pendaftaran</h3>
+                <p style="margin-bottom: 15px; font-size: 14px; color: #666;">Visualisasi data pendaftaran.</p>
+                <div class="btn-group">
+                    <a href="https://datastudio.google.com/embed/reporting/4e530b75-807b-45ad-b1c1-61998a520280/page/page_12345" target="_blank" class="btn btn-looker"><i class="fas fa-chart-line"></i> Buka Looker Studio</a>
+                </div>
+            </div>
+            <div class="data-card">
+                <h3><i class="fas fa-star"></i> Survey Kepuasan</h3>
+                <p style="margin-bottom: 15px; font-size: 14px; color: #666;">Evaluasi kepuasan layanan simpan pinjam.</p>
+                <div class="btn-group">
+                    <a href="https://forms.gle/jDrarFrtbcEn9kAc9" target="_blank" class="btn"><i class="fab fa-google"></i> Buka Google Form</a>
+                </div>
+            </div>
+            <div class="data-card">
+                <h3><i class="fas fa-table"></i> Data Survey Kepuasan</h3>
+                <p style="margin-bottom: 15px; font-size: 14px; color: #666;">Hasil survey kepuasan anggota.</p>
+                <div class="btn-group">
+                    <a href="https://docs.google.com/spreadsheets/d/15VXtdYKqxzrwvmAMjjYeTardwSK3BtnH74FnkrKn4K8/edit?usp=sharing" target="_blank" class="btn btn-excel"><i class="fas fa-table"></i> Lihat Spreadsheet</a>
+                </div>
+            </div>
+            <div class="data-card">
+                <h3><i class="fas fa-chart-pie"></i> Dashboard Kepuasan</h3>
+                <p style="margin-bottom: 15px; font-size: 14px; color: #666;">Visualisasi hasil survey kepuasan.</p>
+                <div class="btn-group">
+                    <a href="https://datastudio.google.com/reporting/355c4ec4-cc48-4598-b9c4-e5311d4aa93e" target="_blank" class="btn btn-looker"><i class="fas fa-chart-line"></i> Buka Looker Studio</a>
+                </div>
+            </div>
+            <!-- TOMBOL HASIL ANALISIS DENGAN DOWNLOAD OTOMATIS -->
+            <div class="data-card">
+                <h3><i class="fas fa-file-lines"></i> Hasil Analisis</h3>
+                <p style="margin-bottom: 15px; font-size: 14px; color: #666;">Rekapitulasi dan analisis keseluruhan.</p>
+                <div class="btn-group">
+                    <button onclick="downloadExcel()" class="btn btn-excel">
+                        <i class="fas fa-download"></i> Download Hasil Analisis (Excel)
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- LIVE DASHBOARD -->
+        <h2 class="section-title"><i class="fas fa-chart-bar"></i> Visualisasi Dashboard Interaktif</h2>
+        <div class="dashboard-container">
+            <div class="tab-menu">
+                <button class="tab-btn active" onclick="switchDashboard(event, 'dashboard-pendaftaran')">
+                    <i class="fas fa-users"></i> Dashboard Pendaftaran
+                </button>
+                <button class="tab-btn" onclick="switchDashboard(event, 'dashboard-kepuasan')">
+                    <i class="fas fa-laugh-beam"></i> Dashboard Kepuasan
+                </button>
+            </div>
+           
+            <div id="dashboard-pendaftaran" class="tab-content">
+                <div class="iframe-wrapper">
+                    <iframe src="https://datastudio.google.com/embed/reporting/958da6ce-f8ef-4028-8a8f-e8a3c888e019/page/page_12345" frameborder="0" allowfullscreen></iframe>
+                </div>
+            </div>
+           
+            <div id="dashboard-kepuasan" class="tab-content" style="display: none;">
+                <div class="iframe-wrapper">
+                    <iframe src="https://datastudio.google.com/embed/reporting/e98456ca-4418-4023-a552-65bccc12337a/page/page_12345" frameborder="0" allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// Fungsi Switch Dashboard (sudah ada sebelumnya)
+function switchDashboard(evt, dashboardId) {
+    document.querySelectorAll(".tab-content").forEach(content => {
+        content.style.display = "none";
+    });
+    document.querySelectorAll(".tab-btn").forEach(btn => {
+        btn.classList.remove("active");
+    });
+    document.getElementById(dashboardId).style.display = "block";
+    evt.currentTarget.classList.add("active");
+}
+
+// Fungsi Download Excel Otomatis
+function downloadExcel() {
+    const url = "https://docs.google.com/spreadsheets/d/1fiwfP9m6EPaaA5MUommdlJjq8MmTcdPS/export?format=xlsx";
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = "Hasil_Analisis_Simpan_Pinjam_POKLAHSAR.xlsx";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    
+    alert("✅ File Excel sedang didownload...");
+}
+</script>
+</body>
+</html>
